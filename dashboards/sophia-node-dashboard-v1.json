@@ -274,7 +274,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "avg(avg_over_time(autopilot_health_checks{health=~\"pciebw\", node=~\".*gpu-il-worker.*\"}[12h])) by (node, deviceid) < 15.0",
+          "expr": "avg(avg_over_time(autopilot_health_checks{health=~\"pciebw\", node=~\".*gdr-gpu-worker-3-il.*\"}[12h])) by (node, deviceid) < 15.0",
           "format": "table",
           "hide": false,
           "instant": true,
