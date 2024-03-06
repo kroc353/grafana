@@ -2,24 +2,25 @@
   "__inputs": [
     {
       "name": "DS_PROMETHEUS",
-      "label": "Prometheus",
+      "label": "prometheus",
       "description": "",
       "type": "datasource",
       "pluginId": "prometheus",
       "pluginName": "Prometheus"
     }
   ],
+  "__elements": {},
   "__requires": [
     {
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "7.5.17"
+      "version": "9.1.6"
     },
     {
       "type": "panel",
       "id": "graph",
-      "name": "Graph",
+      "name": "Graph (old)",
       "version": ""
     },
     {
@@ -40,26 +41,39 @@
       {
         "$$hashKey": "object:192",
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
         "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
         "type": "dashboard"
       }
     ]
   },
   "description": "This dashboard is to display the metrics from DCGM Exporter on a Kubernetes (1.13+) cluster",
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": 12239,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1703256811968,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "fec65cfa-6176-424b-a9d6-a12731df7cc5"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -68,30 +82,34 @@
       },
       "id": 58,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "fec65cfa-6176-424b-a9d6-a12731df7cc5"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Health of PCIe Links Between GPUs and CPUs",
       "type": "row"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "custom": {
-            "align": null,
             "displayMode": "auto",
-            "filterable": false
+            "filterable": false,
+            "inspect": false
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -154,12 +172,23 @@
       },
       "id": 59,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "avg(avg_over_time(autopilot_health_checks{health=~\"pciebw\", node=~\".*gpu-worker.*\"}[12h])) by (node, deviceid) < 3.4",
           "format": "table",
@@ -170,6 +199,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "avg(avg_over_time(autopilot_health_checks{health=~\"pciebw\", node=~\"$node\"}[12h])) by (node, deviceid) < 5",
           "hide": true,
@@ -179,32 +212,25 @@
           "refId": "B"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Cascade Lake Servers Low PCIe BandWidth (<3.4 GB/s)",
       "type": "table"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "custom": {
-            "align": null,
             "displayMode": "auto",
-            "filterable": false
+            "filterable": false,
+            "inspect": false
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -267,14 +293,25 @@
       },
       "id": 60,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
-          "expr": "avg(avg_over_time(autopilot_health_checks{health=~\"pciebw\", node=~\".*gdr-gpu-worker-3-il.*\"}[12h])) by (node, deviceid) < 15.0",
+          "expr": "avg(avg_over_time(autopilot_health_checks{health=~\"pciebw\", node=~\".*gpu-il-worker.*\"}[12h])) by (node, deviceid) < 15.0",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -283,6 +320,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "avg(avg_over_time(autopilot_health_checks{health=~\"pciebw\", node=~\"$node\"}[12h])) by (node, deviceid) < 5",
           "hide": true,
@@ -292,14 +333,15 @@
           "refId": "B"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "IceLake  Servers Low PCIe BandWidth (<15 GB/s)",
       "type": "table"
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "fec65cfa-6176-424b-a9d6-a12731df7cc5"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -308,30 +350,34 @@
       },
       "id": 41,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "fec65cfa-6176-424b-a9d6-a12731df7cc5"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Health of Nodes",
       "type": "row"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "custom": {
-            "align": null,
             "displayMode": "auto",
-            "filterable": false
+            "filterable": false,
+            "inspect": false
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -394,12 +440,23 @@
       },
       "id": 55,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "sum(kube_node_status_condition{condition=~\"Ready\", status=~\"unknown\"}>0) by (node)",
           "format": "table",
@@ -410,32 +467,25 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Nodes in NotReady",
       "type": "table"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "custom": {
-            "align": null,
             "displayMode": "auto",
-            "filterable": false
+            "filterable": false,
+            "inspect": false
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -498,12 +548,23 @@
       },
       "id": 56,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "count(kube_pod_info{} and on(pod) (kube_pod_container_status_waiting{namespace=~\"nvidia-gpu-operator\"} > 0)) by (node)",
           "format": "table",
@@ -514,31 +575,25 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Nodes with Unhealthy Pods in the nvidia-gpu-operator namespace",
       "type": "table"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "custom": {
-            "align": null,
-            "filterable": false
+            "displayMode": "auto",
+            "filterable": false,
+            "inspect": false
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -588,6 +643,13 @@
       },
       "id": 50,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "frameIndex": 1,
         "showHeader": true,
         "sortBy": [
@@ -597,9 +659,13 @@
           }
         ]
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "sum (kube_node_status_capacity{node=~\"$node\", resource=~\"nvidia_com_gpu\"} - kube_node_status_allocatable{node=~\"$node\", resource=~\"nvidia_com_gpu\"}) by (node) > 0",
           "format": "table",
@@ -609,13 +675,14 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "# of GPU Failures",
       "type": "table"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -623,18 +690,11 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": null,
-            "filterable": false
+            "displayMode": "auto",
+            "filterable": false,
+            "inspect": false
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -724,6 +784,13 @@
       },
       "id": 53,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "frameIndex": 1,
         "showHeader": true,
         "sortBy": [
@@ -733,9 +800,13 @@
           }
         ]
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "sum(autopilot_health_checks{node=~\"$node\", health=~\"power-slowdown\"} > 0) by (node)",
           "format": "table",
@@ -745,31 +816,25 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "GPU HW Power Brake Slowdown Active",
       "type": "table"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "custom": {
-            "align": null,
-            "filterable": false
+            "displayMode": "auto",
+            "filterable": false,
+            "inspect": false
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -813,12 +878,19 @@
       },
       "gridPos": {
         "h": 7,
-        "w": 13,
+        "w": 12,
         "x": 0,
         "y": 21
       },
       "id": 47,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "frameIndex": 1,
         "showHeader": true,
         "sortBy": [
@@ -828,9 +900,13 @@
           }
         ]
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "sum(autopilot_health_checks{health=~\"remapped\", node=~\"$node\"}) by (node) > 0",
           "format": "table",
@@ -840,13 +916,115 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "GPU Pending Row-Remapping (Sum on a node)",
       "type": "table"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "displayMode": "auto",
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "red",
+                      "value": 1
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 21
+      },
+      "id": 61,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "frameIndex": 1,
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Value"
+          }
+        ]
+      },
+      "pluginVersion": "9.1.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": true,
+          "expr": "sum(autopilot_health_checks{health=~\"remapped\"}) by (node) > 0 and on (node) count(label_replace(DCGM_FI_DEV_GPU_UTIL{exported_namespace=~\"\"}==0, \"node\", \"$1\", \"Hostname\", \"(.+)\")) by (node) == 8",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Idle GPU nodes with GPU Pending Row-Remapping (Sum on a node)",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -854,17 +1032,107 @@
           },
           "custom": {
             "align": "right",
-            "filterable": false
+            "displayMode": "auto",
+            "filterable": false,
+            "inspect": false
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "green",
+                      "value": 2
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 28
+      },
+      "id": 63,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
           ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.1.6",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "sum(label_replace(node_network_info{operstate=~\"up\"}, \"node\", \"$1\", \"instance\", \"(.+)\")) by (node) == 3 unless on (node) sum(kube_pod_container_resource_limits{resource=~\"nvidia_com_roce_gdr\"}) by (node) >= 2",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "Nodes missing RoCE devices",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "right",
+            "displayMode": "auto",
+            "filterable": false,
+            "inspect": false
+          },
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -910,16 +1178,27 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 28
+        "y": 36
       },
-      "id": 43,
+      "id": 62,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": false,
           "expr": "sum(multi_nic_cni_allocability{host=~\"$node\"}) by (host) != 2",
           "format": "table",
@@ -929,31 +1208,25 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Multi-NIC Allocability != 2 (TCP)",
       "type": "table"
     },
     {
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "custom": {
-            "align": null,
-            "filterable": false
+            "displayMode": "auto",
+            "filterable": false,
+            "inspect": false
           },
-          "mappings": [
-            {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1
-            }
-          ],
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -999,16 +1272,27 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 36
       },
       "id": 44,
       "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": false,
           "expr": "sum(multi_nic_cni_connectivity{host=~\"$node\"}) by (host) != 2",
           "format": "table",
@@ -1018,22 +1302,32 @@
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
       "title": "Multi-NIC Connectivity != 2 (TCP)",
       "type": "table"
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "fec65cfa-6176-424b-a9d6-a12731df7cc5"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 44
       },
       "id": 37,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "fec65cfa-6176-424b-a9d6-a12731df7cc5"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Network Throughput",
       "type": "row"
     },
@@ -1042,7 +1336,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1056,7 +1353,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 37
+        "y": 45
       },
       "hiddenSeries": false,
       "id": 48,
@@ -1078,7 +1375,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1088,6 +1385,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "rate(node_network_receive_bytes_total{instance=~\"$node\",device=~\"en.*\"}[1m])",
           "format": "time_series",
@@ -1098,9 +1399,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "TCP Network Received Traffic (bytes/sec)",
       "tooltip": {
         "shared": true,
@@ -1109,9 +1408,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1119,25 +1416,18 @@
         {
           "$$hashKey": "object:620",
           "format": "bytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:621",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1145,8 +1435,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "decimals": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1160,7 +1452,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 37
+        "y": 45
       },
       "hiddenSeries": false,
       "id": 19,
@@ -1182,7 +1474,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1192,6 +1484,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "rate(node_network_transmit_bytes_total{instance=~\"$node\",device=~\"en.*\"}[1m])",
           "format": "time_series",
@@ -1202,9 +1498,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "TCP Network Transmit Traffic  (bytes/sec)",
       "tooltip": {
         "shared": true,
@@ -1213,9 +1507,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1223,25 +1515,18 @@
         {
           "$$hashKey": "object:284",
           "format": "bytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:285",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1249,7 +1534,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1263,7 +1551,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 45
+        "y": 53
       },
       "hiddenSeries": false,
       "id": 38,
@@ -1285,7 +1573,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1295,6 +1583,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "rate(node_infiniband_port_data_received_bytes_total{instance=~\"$node\"}[1m])",
           "format": "time_series",
@@ -1305,9 +1597,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "RoCE/GDR RDMA Network  Receive Traffic (bytes/sec)",
       "tooltip": {
         "shared": true,
@@ -1316,9 +1606,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1326,25 +1614,18 @@
         {
           "$$hashKey": "object:802",
           "format": "bytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:803",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1352,7 +1633,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -1366,7 +1650,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 45
+        "y": 53
       },
       "hiddenSeries": false,
       "id": 49,
@@ -1390,7 +1674,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "9.1.6",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1400,6 +1684,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "rate(node_infiniband_port_data_transmitted_bytes_total{instance=~\"$node\"}[1m])",
           "format": "time_series",
@@ -1410,9 +1698,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "RoCE/GDR RDMA Network  Transmit Traffic (bytes/sec)",
       "tooltip": {
         "shared": true,
@@ -1421,9 +1707,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1431,38 +1715,43 @@
         {
           "$$hashKey": "object:711",
           "format": "bytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:712",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
       "collapsed": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "fec65cfa-6176-424b-a9d6-a12731df7cc5"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 53
+        "y": 61
       },
       "id": 26,
       "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "fec65cfa-6176-424b-a9d6-a12731df7cc5"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Nodes Status",
       "type": "row"
     },
@@ -1471,10 +1760,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -1482,7 +1770,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 54
+        "y": 62
       },
       "hiddenSeries": false,
       "id": 28,
@@ -1512,6 +1800,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "100 - (node_filesystem_avail_bytes{instance=~\"$node\",mountpoint=\"/\"} * 100 / node_filesystem_size_bytes{instance=~\"$node\",mountpoint=\"/\"})",
           "interval": "",
@@ -1520,9 +1812,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "All Nodes Root FS Used",
       "tooltip": {
         "shared": true,
@@ -1531,9 +1821,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1541,25 +1829,18 @@
         {
           "$$hashKey": "object:1663",
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:1664",
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1567,10 +1848,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -1578,7 +1858,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 54
+        "y": 62
       },
       "hiddenSeries": false,
       "id": 39,
@@ -1609,6 +1889,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "(node_filesystem_size_bytes{fstype=\"tmpfs\", mountpoint=\"/tmp\", instance=~\"$node\"} - node_filesystem_avail_bytes{fstype=\"tmpfs\", mountpoint=\"/tmp\", instance=~\"$node\"})/node_filesystem_size_bytes{fstype=\"tmpfs\", mountpoint=\"/tmp\", instance=~\"$node\"}",
           "interval": "",
@@ -1623,11 +1907,9 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": null,
           "yaxis": "left"
         }
       ],
-      "timeFrom": null,
       "timeRegions": [
         {
           "$$hashKey": "object:1138",
@@ -1639,7 +1921,6 @@
           "op": "time"
         }
       ],
-      "timeShift": null,
       "title": "All Nodes /tmp Utilization (tmpfs) on Host",
       "tooltip": {
         "shared": true,
@@ -1648,9 +1929,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1658,25 +1937,18 @@
         {
           "$$hashKey": "object:706",
           "format": "percentunit",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:707",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1684,7 +1956,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "none"
@@ -1697,7 +1972,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 65
+        "y": 73
       },
       "hiddenSeries": false,
       "id": 21,
@@ -1727,6 +2002,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=~\"$node\", mode=\"system\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=~\"$node\"}[$__rate_interval])))",
           "format": "time_series",
@@ -1735,6 +2014,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "sum by(instance) (irate(node_cpu_seconds_total{instance=~\"$node\", mode=\"user\"}[$__rate_interval])) / on(instance) group_left sum by (instance)((irate(node_cpu_seconds_total{instance=~\"$node\"}[$__rate_interval])))",
           "hide": false,
@@ -1744,9 +2027,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "CPU Basic",
       "tooltip": {
         "shared": true,
@@ -1755,9 +2036,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1765,25 +2044,18 @@
         {
           "$$hashKey": "object:129",
           "format": "none",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:130",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1791,10 +2063,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -1802,7 +2073,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 65
+        "y": 73
       },
       "hiddenSeries": false,
       "id": 29,
@@ -1833,6 +2104,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "100 - ((node_memory_MemAvailable_bytes{instance=~\"$node\"} * 100) / node_memory_MemTotal_bytes{instance=~\"$node\"})",
           "interval": "",
@@ -1841,9 +2116,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "CPU RAM Used",
       "tooltip": {
         "shared": true,
@@ -1852,9 +2125,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1862,25 +2133,18 @@
         {
           "$$hashKey": "object:914",
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:915",
           "format": "percent",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1888,7 +2152,10 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
+      },
       "fieldConfig": {
         "defaults": {
           "unit": "bytes"
@@ -1901,7 +2168,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 73
+        "y": 81
       },
       "hiddenSeries": false,
       "id": 30,
@@ -1931,6 +2198,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "sum(cluster:namespace:pod_memory:active:kube_pod_container_resource_requests{node=~\"$node\"}) by (node)",
           "interval": "",
@@ -1939,9 +2210,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "Memory Requested for All Pods",
       "tooltip": {
         "shared": true,
@@ -1950,9 +2219,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -1960,25 +2227,18 @@
         {
           "$$hashKey": "object:1824",
           "format": "bytes",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:1825",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     },
     {
@@ -1986,10 +2246,9 @@
       "bars": false,
       "dashLength": 10,
       "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "${DS_PROMETHEUS}"
       },
       "fill": 1,
       "fillGradient": 0,
@@ -1997,7 +2256,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 73
+        "y": 81
       },
       "hiddenSeries": false,
       "id": 31,
@@ -2027,6 +2286,10 @@
       "steppedLine": false,
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
           "exemplar": true,
           "expr": "sum(cluster:namespace:pod_cpu:active:kube_pod_container_resource_requests{node=~\"$node\"}) by (node)",
           "interval": "",
@@ -2035,9 +2298,7 @@
         }
       ],
       "thresholds": [],
-      "timeFrom": null,
       "timeRegions": [],
-      "timeShift": null,
       "title": "# of CPUs Requested for All Pods",
       "tooltip": {
         "shared": true,
@@ -2046,9 +2307,7 @@
       },
       "type": "graph",
       "xaxis": {
-        "buckets": null,
         "mode": "time",
-        "name": null,
         "show": true,
         "values": []
       },
@@ -2056,30 +2315,23 @@
         {
           "$$hashKey": "object:101",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         },
         {
           "$$hashKey": "object:102",
           "format": "short",
-          "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
           "show": true
         }
       ],
       "yaxis": {
-        "align": false,
-        "alignLevel": null
+        "align": false
       }
     }
   ],
   "refresh": false,
-  "schemaVersion": 27,
+  "schemaVersion": 37,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -2087,10 +2339,11 @@
       {
         "allValue": "",
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
         "definition": "label_values(namespace_workload_pod:kube_pod_owner:relabel{namespace!~\"openshift-.*|ibm-.*|nvidia-.*|kube-system|kubeflow|kyverno|mpi-operator|scheduler-plugins|.*grafana.*\"}, namespace)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Namespace",
@@ -2106,7 +2359,6 @@
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -2114,10 +2366,11 @@
       {
         "allValue": "",
         "current": {},
-        "datasource": "${DS_PROMETHEUS}",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
         "definition": "label_values(kube_pod_info{namespace=~\"$namespace\"}, node)",
-        "description": null,
-        "error": null,
         "hide": 0,
         "includeAll": true,
         "label": "Node",
@@ -2133,7 +2386,6 @@
         "skipUrlSync": false,
         "sort": 1,
         "tagValuesQuery": "",
-        "tags": [],
         "tagsQuery": "",
         "type": "query",
         "useTags": false
@@ -2141,7 +2393,7 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-3d",
     "to": "now"
   },
   "timepicker": {
@@ -2161,5 +2413,6 @@
   "timezone": "",
   "title": "OpenShift Nodes",
   "uid": "Oxed_c6W2",
-  "version": 23
+  "version": 26,
+  "weekStart": ""
 }
