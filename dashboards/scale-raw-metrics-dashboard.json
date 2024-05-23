@@ -1,0 +1,1536 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_GRAFANA-BRIDGE",
+      "label": "grafana-bridge",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "opentsdb",
+      "pluginName": "OpenTSDB"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.5.17"
+    },
+    {
+      "type": "datasource",
+      "id": "opentsdb",
+      "name": "OpenTSDB",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Scale raw metrics. See  <a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">doc</a>",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 3,
+      "panels": [
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "See \n<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">doc</a>",
+          "gridPos": {
+            "h": 7,
+            "w": 24,
+            "x": 0,
+            "y": 1
+          },
+          "id": 8,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "See \n<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">the GPFSNodeAPI metrics</a> documentation.\n\n\n    gpfs_is_bytes_read: Number of bytes read.\n    gpfs_is_bytes_written: Number of bytes written.\n    gpfs_is_close_calls: Number of close calls.\n    gpfs_is_inodes_written: Number of inode updates to disk.\n    gpfs_is_open_calls: Number of open calls.\n    gpfs_is_readDir_calls: Number of readdir calls.\n    gpfs_is_read_calls: Number of read calls.\n    gpfs_is_write_calls: Number of write calls.\n",
+            "mode": "markdown"
+          },
+          "pluginVersion": "9.5.17",
+          "title": "Overview of GPFSNodeAPI Metrics",
+          "type": "text"
+        },
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "See \n<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">doc</a>",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 0,
+            "y": 8
+          },
+          "id": 1,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "disableDownsampling": false,
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "explicitTags": false,
+              "hide": false,
+              "metric": "gpfs_is_bytes_read",
+              "refId": "A",
+              "shouldComputeRate": false
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_is_bytes_written",
+              "refId": "B"
+            }
+          ],
+          "title": "Read/Write bytes",
+          "transformations": [],
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 8,
+            "y": 8
+          },
+          "id": 2,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_is_read_calls",
+              "refId": "A"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_is_write_calls",
+              "refId": "B"
+            }
+          ],
+          "title": "Read/Write calls",
+          "transformations": [],
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "See \n<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">doc</a>",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 16,
+            "y": 8
+          },
+          "id": 7,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "disableDownsampling": false,
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "downsampleInterval": "",
+              "explicitTags": false,
+              "hide": false,
+              "metric": "gpfs_is_open_calls",
+              "refId": "A",
+              "shouldComputeRate": false
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_is_close_calls",
+              "refId": "B"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_is_inodes_written",
+              "refId": "C"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_is_readDir_calls",
+              "refId": "D"
+            }
+          ],
+          "title": "Others",
+          "transformations": [],
+          "type": "timeseries"
+        }
+      ],
+      "title": "GPFSNodeAPI metrics",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 6,
+      "panels": [
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 2
+          },
+          "id": 14,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">The GPFSRPCS metrics</a> documentation.\n\nEach metric that the GPFSRPCS sensor provides for a node is combined over all the peers to which the node is connected. An average is a weighted average over all the peer connections. A minimum is the minimum of the minimum for all the peer connections, and a maximum is the maximum of the maximum for all the peer connections.\nThe GPFSRPCS metrics are:\n\n    gpfs_rpcs_chn_av: The average amount of time the RPC must wait for access to a communication channel to the target node.\n    gpfs_rpcs_chn_cnt: The number of local nodes to this cluster (peers) this stat is collected from.\n    gpfs_rpcs_chn_max: The maximum amount of time the RPC must wait for access to a communication channel to the target node.\n    gpfs_rpcs_chn_min: The minimum amount of time the RPC must wait for access to a communication channel to the target node.\n    gpfs_rpcs_lat_tcp_av: The average latency of the RPC when sent and received over an Ethernet interface.\n    gpfs_rpcs_lat_tcp_cnt: The number of local nodes to this cluster (peers) this stat is collected from.\n    gpfs_rpcs_lat_tcp_max: The maximum latency of the RPC when sent and received over an Ethernet interface.\n    gpfs_rpcs_lat_tcp_min: The minimum latency of the RPC when sent and received over an Ethernet interface.\n    gpfs_rpcs_rcv_tcp_av : The average amount of time to transfer an RPC message from an Ethernet interface into the daemon.\n    gpfs_rpcs_rcv_tcp_cnt: The number of local nodes to this cluster (peers) this stat is collected from.\n    gpfs_rpcs_rcv_tcp_max: The maximum amount of time to transfer an RPC message from an Ethernet interface into the daemon.\n    gpfs_rpcs_rcv_tcp_min: The minimum amount of time to transfer an RPC message from an Ethernet interface into the daemon.\n    gpfs_rpcs_snd_tcp_av: The average amount of time to transfer an RPC message to an Ethernet interface.\n    gpfs_rpcs_snd_tcp_cnt: The number of local nodes to this cluster (peers) this stat is collected from.\n    gpfs_rpcs_snd_tcp_max: The maximum amount of time to transfer an RPC message to an Ethernet interface.\n    gpfs_rpcs_snd_tcp_min: The minimum amount of time to transfer an RPC message to an Ethernet interface.\n\n",
+            "mode": "markdown"
+          },
+          "pluginVersion": "9.5.17",
+          "title": "Overview of GPFSRPCS metrics",
+          "type": "text"
+        },
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "See \n<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">doc</a>",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 0,
+            "y": 12
+          },
+          "id": 9,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_chn_av",
+              "refId": "A"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_chn_max",
+              "refId": "B"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_chn_min",
+              "refId": "C"
+            }
+          ],
+          "title": "RPCS channel avg/min/max",
+          "transformations": [],
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "See \n<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">doc</a>",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 8,
+            "y": 12
+          },
+          "id": 10,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_lat_tcp_av",
+              "refId": "A"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_lat_tcp_max",
+              "refId": "B"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_lat_tcp_min",
+              "refId": "C"
+            }
+          ],
+          "title": "RPCS latency TCP avg/min/max",
+          "transformations": [],
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "See \n<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">doc</a>",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 16,
+            "y": 12
+          },
+          "id": 11,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_rcv_tcp_av",
+              "refId": "A"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_rcv_tcp_max",
+              "refId": "B"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_rcv_tcp_min",
+              "refId": "C"
+            }
+          ],
+          "title": "RPCS Recv TCP avg/min/max",
+          "transformations": [],
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "See \n<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">doc</a>",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 0,
+            "y": 19
+          },
+          "id": 12,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_snd_tcp_av",
+              "refId": "A"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_snd_tcp_max",
+              "refId": "B"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_snd_tcp_min",
+              "refId": "C"
+            }
+          ],
+          "title": "RPCS Send TCP avg/min/max",
+          "transformations": [],
+          "type": "timeseries"
+        }
+      ],
+      "title": "GPFSRPCS metrics",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 5,
+      "panels": [
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 6,
+            "w": 24,
+            "x": 0,
+            "y": 3
+          },
+          "id": 16,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">The GPFSVFSX metrics</a> documentation.\n\nThe GPFSVFSX sensor provides virtual file system operations statistics, including the number of operations and their average, minimum and maximum latency metrics. \nThe GPFSVFSX sensor provides the following metrics:\n\n    gpfs_vfsx_accesses: Number of accesses operations.\n    gpfs_vfsx_accesses_t: Amount of time in seconds spent in accesses operations.\n    gpfs_vfsx_accesses_tmax: Maximum amount of time in seconds spent in accesses operations.\n    gpfs_vfsx_accesses_tmin: Minimum amount of time in seconds spent in accesses operations.\n    gpfs_vfsx_aioread: Number of aioread operations.\n    gpfs_vfsx_aioread_t: Amount of time in seconds spent in aioread operations.\n    gpfs_vfsx_aioread_tmax: Maximum amount of time in seconds spent in aioread operations.\n    gpfs_vfsx_aioread_tmin: Minimum amount of time in seconds spent in aioread operations.\n    gpfs_vfsx_aiowrite: Number of aiowrite operations.\n    gpfs_vfsx_aiowrite_t: Amount of time in seconds spent in aiowrite operations.\n    gpfs_vfsx_aiowrite_tmax: Maximum amount of time in seconds spent in aiowrite operations.\n    gpfs_vfsx_aiowrite_tmin: Minimum amount of time in seconds spent in aiowrite operations.\n    gpfs_vfsx_clear: Number of clear operations.\n    gpfs_vfsx_clear_t: Amount of time in seconds spent in clear operations.\n    gpfs_vfsx_clear_tmax: Maximum amount of time in seconds spent in clear operations.\n    gpfs_vfsx_clear_tmin: Minimum amount of time in seconds spent in clear operations.\n    gpfs_vfsx_close: Number of close operations.\n    gpfs_vfsx_close_t: Amount of time in seconds spent in close operations.\n    gpfs_vfsx_close_tmax: Maximum amount of time in seconds spent in close operations.\n    gpfs_vfsx_close_tmin: Minimum amount of time in seconds spent in close operations.\n    gpfs_vfsx_create: Number of create operations.\n    gpfs_vfsx_create_t: Amount of time in seconds spent in create operations.\n    gpfs_vfsx_create_tmax: Maximum amount of time in seconds spent in create operations.\n    gpfs_vfsx_create_tmin: Minimum amount of time in seconds spent in create operations.\n    gpfs_vfsx_decodeFh: Number of decodeFh operations.\n    gpfs_vfsx_decodeFh_t: Amount of time in seconds spent in decodeFh operations.\n    gpfs_vfsx_decodeFh_tmax: Maximum amount of time in seconds spent in decodeFh operations.\n    gpfs_vfsx_decodeFh_tmin: Minimum amount of time in seconds spent in decodeFh operations.\n    gpfs_vfsx_encodeFh: Number of encodeFh operations.\n    gpfs_vfsx_encodeFh_t: Amount of time in seconds spent in encodeFh operations.\n    gpfs_vfsx_encodeFh_tmax: Maximum amount of time in seconds spent in encodeFh operations.\n    gpfs_vfsx_encodeFh_tmin: Minimum amount of time in seconds spent in encodeFh operations.\n    gpfs_vfsx_flock: Number of flock operations.\n    gpfs_vfsx_flock_t: Amount of time in seconds spent in flock operations.\n    gpfs_vfsx_flock_tmax: Maximum amount of time in seconds spent in flock operations.\n    gpfs_vfsx_flock_tmin: Minimum amount of time in seconds spent in flock operations.\n    gpfs_vfsx_fsync: Number of fsync operations.\n    gpfs_vfsx_fsync_t: Amount of time in seconds spent in fsync operations.\n    gpfs_vfsx_fsync_tmax: Maximum amount of time in seconds spent in fsync operations.\n    gpfs_vfsx_fsync_tmin: Minimum amount of time in seconds spent in fsync operations.\n    gpfs_vfsx_fsyncRange: Number of fsyncRange operations.\n    gpfs_vfsx_fsyncRange_t: Amount of time in seconds spent in fsyncRange operations.\n    gpfs_vfsx_fsyncRange_tmax: Maximum amount of time in seconds spent in fsyncRange operations.\n    gpfs_vfsx_fsyncRange_tmin: Minimum amount of time in seconds spent in fsyncRange operations.\n    gpfs_vfsx_ftrunc: Number of ftrunc operations.\n    gpfs_vfsx_ftrunc_t: Amount of time in seconds spent in ftrunc operations.\n    gpfs_vfsx_ftrunc_tmax: Maximum amount of time in seconds spent in ftrunc operations.\n    gpfs_vfsx_ftrunc_tmin: Minimum amount of time in seconds spent in ftrunc operations.\n    gpfs_vfsx_getattr: Number of getattr operations.\n    gpfs_vfsx_getattr_t: Amount of time in seconds spent in getattr operations.\n    gpfs_vfsx_getattr_tmax: Maximum amount of time in seconds spent in getattr operations.\n    gpfs_vfsx_getattr_tmin: Minimum amount of time in seconds spent in getattr operations.\n    gpfs_vfsx_getDentry: Number of getDentry operations.\n    gpfs_vfsx_getDentry_t: Amount of time in seconds spent in getDentry operations.\n    gpfs_vfsx_getDentry_tmax: Maximum amount of time in seconds spent in getDentry operations.\n    gpfs_vfsx_getDentry_tmin: Minimum amount of time in seconds spent in getDentry operations.\n    gpfs_vfsx_getParent: Number of getParent operations.\n    gpfs_vfsx_getParent_t: Amount of time in seconds spent in getParent operations.\n    gpfs_vfsx_getParent_tmax: Maximum amount of time in seconds spent in getParent operations.\n    gpfs_vfsx_getParent_tmin: Minimum amount of time in seconds spent in getParent operations.\n    gpfs_vfsx_getxattr: Number of getxattr operations.\n    gpfs_vfsx_getxattr_t: Amount of time in seconds spent in getxattr operations.\n    gpfs_vfsx_getxattr_tmax: Maximum amount of time in seconds spent in getxattr operations.\n    gpfs_vfsx_getxattr_tmin: Minimum amount of time in seconds spent in getxattr operations.\n    gpfs_vfsx_link: Number of link operations.\n    gpfs_vfsx_link_t: Amount of time in seconds spent in link operations.\n    gpfs_vfsx_link_tmax: Maximum amount of time in seconds spent in link operations.\n    gpfs_vfsx_link_tmin: Minimum amount of time in seconds spent in link operations.\n    gpfs_vfsx_listxattr: Number of listxattr operations.\n    gpfs_vfsx_listxattr_t: Amount of time in seconds spent in listxattr operations.\n    gpfs_vfsx_listxattr_tmax: Maximum amount of time in seconds spent in listxattr operations.\n    gpfs_vfsx_listxattr_tmin: Minimum amount of time in seconds spent in listxattr operations.\n    gpfs_vfsx_lockctl: Number of lockctl operations.\n    gpfs_vfsx_lockctl_t: Amount of time in seconds spent in lockctl operations.\n    gpfs_vfsx_lockctl_tmax: Maximum amount of time in seconds spent in lockctl operations.\n    gpfs_vfsx_lockctl_tmin: Minimum amount of time in seconds spent in lockctl operations.\n    gpfs_vfsx_lookup: Number of lookup operations.\n    gpfs_vfsx_lookup_t: Amount of time in seconds spent in lookup operations.\n    gpfs_vfsx_lookup_tmax: Maximum amount of time in seconds spent in lookup operations.\n    gpfs_vfsx_lookup_tmin: Minimum amount of time in seconds spent in lookup operations.\n    gpfs_vfsx_mapLloff: Number of mapLloff operations.\n    gpfs_vfsx_mapLloff_t: Amount of time in seconds spent in mapLloff operations.\n    gpfs_vfsx_mapLloff_tmax: Maximum amount of time in seconds spent in mapLloff operations.\n    gpfs_vfsx_mapLloff_tmin: Minimum amount of time in seconds spent in mapLloff operations.\n    gpfs_vfsx_mkdir: Number of mkdir operations.\n    gpfs_vfsx_mkdir_t: Amount of time in seconds spent in mkdir operations.\n    gpfs_vfsx_mkdir_tmax: Maximum amount of time in seconds spent in mkdir operations.\n    gpfs_vfsx_mkdir_tmin: Minimum amount of time in seconds spent in mkdir operations.\n    gpfs_vfsx_mknod: Number of mknod operations.\n    gpfs_vfsx_mknod_t: Amount of time in seconds spent in mknod operations.\n    gpfs_vfsx_mknod_tmax: Maximum amount of time in seconds spent in mknod operations.\n    gpfs_vfsx_mknod_tmin: Minimum amount of time in seconds spent in mknod operations.\n    gpfs_vfsx_mmapread: Number of mmapread operations.\n    gpfs_vfsx_mmapread_t: Amount of time in seconds spent in mmapread operations.\n    gpfs_vfsx_mmapread_tmax: Maximum amount of time in seconds spent in mmapread operations.\n    gpfs_vfsx_mmapread_tmin: Minimum amount of time in seconds spent in mmapread operations.\n    gpfs_vfsx_mmapwrite: Number of mmapwrite operations.\n    gpfs_vfsx_mmapwrite_t: Amount of time in seconds spent in mmapwrite operations.\n    gpfs_vfsx_mmapwrite_tmax: Maximum amount of time in seconds spent in mmapwrite operations.\n    gpfs_vfsx_mmapwrite_tmin: Minimum amount of time in seconds spent in mmapwrite operations.\n    gpfs_vfsx_mount: Number of mount operations.\n    gpfs_vfsx_mount_t: Amount of time in seconds spent in mount operations.\n    gpfs_vfsx_mount_tmax: Maximum amount of time in seconds spent in mount operations.\n    gpfs_vfsx_mount_tmin: Minimum amount of time in seconds spent in mount operations.\n    gpfs_vfsx_open: Number of open operations.\n    gpfs_vfsx_open_t: Amount of time in seconds spent in open operations.\n    gpfs_vfsx_open_tmax: Maximum amount of time in seconds spent in open operations.\n    gpfs_vfsx_open_tmin: Minimum amount of time in seconds spent in open operations.\n    gpfs_vfsx_read: Number of read operations.\n    gpfs_vfsx_read_t: Amount of time in seconds spent in read operations.\n    gpfs_vfsx_read_tmax: Maximum amount of time in seconds spent in read operations.\n    gpfs_vfsx_read_tmin: Minimum amount of time in seconds spent in read operations.\n    gpfs_vfsx_readdir: Number of readdir operations.\n    gpfs_vfsx_readdir_t: Amount of time in seconds spent in readdir operations.\n    gpfs_vfsx_readdir_tmax: Maximum amount of time in seconds spent in readdir operations.\n    gpfs_vfsx_readdir_tmin: Minimum amount of time in seconds spent in readdir operations.\n    gpfs_vfsx_readlink: Number of readlink operations.\n    gpfs_vfsx_readlink_t: Amount of time in seconds spent in readlink operations.\n    gpfs_vfsx_readlink_tmax: Maximum amount of time in seconds spent in readlink operations.\n    gpfs_vfsx_readlink_tmin: Minimum amount of time in seconds spent in readlink operations.\n    gpfs_vfsx_readpage: Number of readpage operations.\n    gpfs_vfsx_readpage_t: Amount of time in seconds spent in readpage operations.\n    gpfs_vfsx_readpage_tmax: Maximum amount of time in seconds spent in readpage operations.\n    gpfs_vfsx_readpage_tmin: Minimum amount of time in seconds spent in readpage operations.\n    gpfs_vfsx_remove: Number of remove operations.\n    gpfs_vfsx_remove_t: Amount of time in seconds spent in remove operations.\n    gpfs_vfsx_remove_tmax: Maximum amount of time in seconds spent in remove operations.\n    gpfs_vfsx_remove_tmin: Minimum amount of time in seconds spent in remove operations.\n    gpfs_vfsx_removexattr: Number of removexattr operations.\n    gpfs_vfsx_removexattr_t: Amount of time in seconds spent in removexattr operations.\n    gpfs_vfsx_removexattr_tmax: Maximum amount of time in seconds spent in removexattr operations.\n    gpfs_vfsx_removexattr_tmin: Minimum amount of time in seconds spent in removexattr operations.\n    gpfs_vfsx_rename: Number of rename operations.\n    gpfs_vfsx_rename_t: Amount of time in seconds spent in rename operations.\n    gpfs_vfsx_rename_tmax: Maximum amount of time in seconds spent in rename operations.\n    gpfs_vfsx_rename_tmin: Minimum amount of time in seconds spent in rename operations.\n    gpfs_vfsx_rmdir: Number of rmdir operations.\n    gpfs_vfsx_rmdir_t: Amount of time in seconds spent in rmdir operations.\n    gpfs_vfsx_rmdir_tmax: Maximum amount of time in seconds spent in rmdir operations.\n    gpfs_vfsx_rmdir_tmin: Minimum amount of time in seconds spent in rmdir operations.\n    gpfs_vfsx_setacl: Number of setacl operations.\n    gpfs_vfsx_setacl_t: Amount of time in seconds spent in setacl operations.\n    gpfs_vfsx_setacl_tmax: Maximum amount of time in seconds spent in setacl operations.\n    gpfs_vfsx_setacl_tmin: Minimum amount of time in seconds spent in setacl operations.\n    gpfs_vfsx_setattr: Number of setattr operations.\n    gpfs_vfsx_setattr_t: Amount of time in seconds spent in setattr operations.\n    gpfs_vfsx_setattr_tmax: Maximum amount of time in seconds spent in setattr operations.\n    gpfs_vfsx_setattr_tmin: Minimum amount of time in seconds spent in setattr operations.\n    gpfs_vfsx_setxattr: Number of setxattr operations.\n    gpfs_vfsx_setxattr_t: Amount of time in seconds spent in setxattr operations.\n    gpfs_vfsx_setxattr_tmax: Maximum amount of time in seconds spent in setxattr operations.\n    gpfs_vfsx_setxattr_tmin: Minimum amount of time in seconds spent in setxattr operations.\n    gpfs_vfsx_statfs: Number of statfs operations.\n    gpfs_vfsx_statfs_t: Amount of time in seconds spent in statfs operations.\n    gpfs_vfsx_statfs_tmax: Maximum amount of time in seconds spent in statfs operations.\n    gpfs_vfsx_statfs_tmin: Minimum amount of time in seconds spent in statfs operations.\n    gpfs_vfsx_symlink: Number of symlink operations.\n    gpfs_vfsx_symlink_t: Amount of time in seconds spent in symlink operations.\n    gpfs_vfsx_symlink_tmax: Maximum amount of time in seconds spent in symlink operations.\n    gpfs_vfsx_symlink_tmin: Minimum amount of time in seconds spent in symlink operations.\n    gpfs_vfsx_sync: Number of sync operations.\n    gpfs_vfsx_sync_t: Amount of time in seconds spent in sync operations.\n    gpfs_vfsx_sync_tmax: Maximum amount of time in seconds spent in sync operations.\n    gpfs_vfsx_sync_tmin: Minimum amount of time in seconds spent in sync operations.\n    gpfs_vfsx_tsfattr: Number of tsfattr operations.\n    gpfs_vfsx_tsfattr_t: Amount of time in seconds spent in tsfattr operations.\n    gpfs_vfsx_tsfattr_tmax: Maximum amount of time in seconds spent in tsfattr operations.\n    gpfs_vfsx_tsfattr_tmin: Minimum amount of time in seconds spent in tsfattr operations.\n    gpfs_vfsx_tsfsattr: Number of tsfsattr operations.\n    gpfs_vfsx_tsfsattr_t: Amount of time in seconds spent in tsfsattr operations.\n    gpfs_vfsx_tsfsattr_tmax: Maximum amount of time in seconds spent in tsfsattr operations.\n    gpfs_vfsx_tsfsattr_tmin: Minimum amount of time in seconds spent in tsfsattr operations.\n    gpfs_vfsx_unmap: Number of unmap operations.\n    gpfs_vfsx_unmap_t: Amount of time in seconds spent in unmap operations.\n    gpfs_vfsx_unmap_tmax: Maximum amount of time in seconds spent in unmap operations.\n    gpfs_vfsx_unmap_tmin: Minimum amount of time in seconds spent in unmap operations.\n    gpfs_vfsx_vget: Number of vget operations.\n    gpfs_vfsx_vget_t: Amount of time in seconds spent in vget operations.\n    gpfs_vfsx_vget_tmax: Maximum amount of time in seconds spent in vget operations.\n    gpfs_vfsx_vget_tmin: Minimum amount of time in seconds spent in vget operations.\n    gpfs_vfsx_write: Number of write operations.\n    gpfs_vfsx_write_t: Amount of time in seconds spent in write operations.\n    gpfs_vfsx_write_tmax: Maximum amount of time in seconds spent in write operations.\n    gpfs_vfsx_write_tmin: Minimum amount of time in seconds spent in write operations.\n    gpfs_vfsx_writepage: Number of writepage operations.\n    gpfs_vfsx_writepage_t: Amount of time in seconds spent in writepage operations.\n    gpfs_vfsx_writepage_tmax: Maximum amount of time in seconds spent in writepage operations.\n    gpfs_vfsx_writepage_tmin: Minimum amount of time in seconds spent in writepage operations.\n\n",
+            "mode": "markdown"
+          },
+          "pluginVersion": "9.5.17",
+          "title": "Overview of GPFSVFSX metrics",
+          "type": "text"
+        },
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "See \n<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">doc</a>",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 6,
+            "w": 8,
+            "x": 0,
+            "y": 9
+          },
+          "id": 15,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_read",
+              "refId": "A"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_write",
+              "refId": "B"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_aioread",
+              "refId": "C"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_aiowrite",
+              "refId": "D"
+            }
+          ],
+          "title": "Number of VFSX Read/Write operations",
+          "transformations": [],
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "See \n<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">doc</a>",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 0,
+            "y": 15
+          },
+          "id": 17,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_accesses",
+              "refId": "A"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_aioread",
+              "refId": "B"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_aiowrite",
+              "refId": "C"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_clear",
+              "refId": "D"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_close",
+              "refId": "E"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_create",
+              "refId": "F"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_decodeFh",
+              "refId": "G"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_flock",
+              "refId": "H"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_fsync",
+              "refId": "I"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_fsyncRange",
+              "refId": "J"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_vfsx_ftrunc",
+              "refId": "K"
+            }
+          ],
+          "title": "Number of VFSX operations",
+          "transformations": [],
+          "type": "timeseries"
+        }
+      ],
+      "title": "GPFSVFSX metrics",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 4,
+      "panels": [
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "",
+          "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 4
+          },
+          "id": 19,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">The GPFSRPCS metrics</a> documentation.\n\nEach metric that the GPFSRPCS sensor provides for a node is combined over all the peers to which the node is connected. An average is a weighted average over all the peer connections. A minimum is the minimum of the minimum for all the peer connections, and a maximum is the maximum of the maximum for all the peer connections.\nThe GPFSRPCS metrics are:\n\n    gpfs_rpcs_chn_av: The average amount of time the RPC must wait for access to a communication channel to the target node.\n    gpfs_rpcs_chn_cnt: The number of local nodes to this cluster (peers) this stat is collected from.\n    gpfs_rpcs_chn_max: The maximum amount of time the RPC must wait for access to a communication channel to the target node.\n    gpfs_rpcs_chn_min: The minimum amount of time the RPC must wait for access to a communication channel to the target node.\n    gpfs_rpcs_lat_tcp_av: The average latency of the RPC when sent and received over an Ethernet interface.\n    gpfs_rpcs_lat_tcp_cnt: The number of local nodes to this cluster (peers) this stat is collected from.\n    gpfs_rpcs_lat_tcp_max: The maximum latency of the RPC when sent and received over an Ethernet interface.\n    gpfs_rpcs_lat_tcp_min: The minimum latency of the RPC when sent and received over an Ethernet interface.\n    gpfs_rpcs_rcv_tcp_av : The average amount of time to transfer an RPC message from an Ethernet interface into the daemon.\n    gpfs_rpcs_rcv_tcp_cnt: The number of local nodes to this cluster (peers) this stat is collected from.\n    gpfs_rpcs_rcv_tcp_max: The maximum amount of time to transfer an RPC message from an Ethernet interface into the daemon.\n    gpfs_rpcs_rcv_tcp_min: The minimum amount of time to transfer an RPC message from an Ethernet interface into the daemon.\n    gpfs_rpcs_snd_tcp_av: The average amount of time to transfer an RPC message to an Ethernet interface.\n    gpfs_rpcs_snd_tcp_cnt: The number of local nodes to this cluster (peers) this stat is collected from.\n    gpfs_rpcs_snd_tcp_max: The maximum amount of time to transfer an RPC message to an Ethernet interface.\n    gpfs_rpcs_snd_tcp_min: The minimum amount of time to transfer an RPC message to an Ethernet interface.\n\n",
+            "mode": "markdown"
+          },
+          "pluginVersion": "9.5.17",
+          "title": "Overview of GPFSRPCS metrics",
+          "type": "text"
+        },
+        {
+          "datasource": {
+            "type": "opentsdb",
+            "uid": "${DS_GRAFANA-BRIDGE}"
+          },
+          "description": "See \n<a href=\"https://www.ibm.com/docs/en/storage-scale/5.1.9?topic=metrics-gpfs#listofmetrics__section_gpfsdisk\" target=\"_blank\">doc</a>",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              }
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 7,
+            "w": 8,
+            "x": 0,
+            "y": 14
+          },
+          "id": 18,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "pluginVersion": "9.5.17",
+          "targets": [
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_snd_tcp_av",
+              "refId": "A"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_snd_tcp_max",
+              "refId": "B"
+            },
+            {
+              "aggregator": "sum",
+              "datasource": {
+                "type": "opentsdb",
+                "uid": "${DS_GRAFANA-BRIDGE}"
+              },
+              "downsampleAggregator": "avg",
+              "downsampleFillPolicy": "none",
+              "hide": false,
+              "metric": "gpfs_rpcs_snd_tcp_min",
+              "refId": "C"
+            }
+          ],
+          "title": "RPCS Send TCP avg/min/max",
+          "transformations": [],
+          "type": "timeseries"
+        }
+      ],
+      "title": "GPFSWaiters metrics",
+      "type": "row"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 38,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "ScaleRawMetrics-03",
+  "uid": "a5b8260f-5cad-49a9-89d2-2a7cf45d469a",
+  "version": 23,
+  "weekStart": ""
+}
