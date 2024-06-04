@@ -2132,7 +2132,10 @@
   "refresh": false,
   "schemaVersion": 38,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "Storage",
+    "Admin"
+  ],
   "templating": {
     "list": [
       {
