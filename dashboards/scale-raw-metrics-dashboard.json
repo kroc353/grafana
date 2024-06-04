@@ -1519,7 +1519,11 @@
   "refresh": "10s",
   "schemaVersion": 38,
   "style": "dark",
-  "tags": [],
+  "tags": [
+    "Storage",
+    "Gpfs",
+    "Admin"
+  ],
   "templating": {
     "list": []
   },
