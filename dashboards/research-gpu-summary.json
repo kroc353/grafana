@@ -132,7 +132,7 @@
       }
     ]
   },
-  "description": "kevin1 development",
+  "description": "IBM Research GPU Summary Dashboard",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -2381,8 +2381,8 @@
   ],
   "schemaVersion": 39,
   "tags": [
-    "kevin1",
-    "dev"
+    "summary",
+    "GPU"
   ],
   "templating": {
     "list": []
@@ -2393,7 +2393,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "kevdev",
+  "title": "IBM Research GPU Summary",
   "uid": "bdsu3o7g82i2oc",
   "version": 46,
   "weekStart": ""
