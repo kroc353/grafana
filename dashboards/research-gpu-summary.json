@@ -63,10 +63,22 @@
       "type": "datasource",
       "pluginId": "prometheus",
       "pluginName": "Prometheus"
+    },
+    {
+      "name": "DS_EXPRESSION",
+      "label": "Expression",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "__expr__"
     }
   ],
   "__elements": {},
   "__requires": [
+    {
+      "type": "datasource",
+      "id": "__expr__",
+      "version": "1.0.0"
+    },
     {
       "type": "panel",
       "id": "bargauge",
@@ -394,7 +406,6 @@
             "mode": "continuous-BlPu"
           },
           "mappings": [],
-          "max": 150,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -534,6 +545,16 @@
           "legendFormat": "Vela STAGING",
           "range": true,
           "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "${DS_EXPRESSION}"
+          },
+          "expression": "$A + $B + $C + $D + $E + $F + $G + $H",
+          "hide": false,
+          "refId": "TOTAL",
+          "type": "math"
         }
       ],
       "title": "Total GPU Nodes by Cluster",
@@ -720,7 +741,6 @@
             "mode": "continuous-YlBl"
           },
           "mappings": [],
-          "max": 1200,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -860,6 +880,16 @@
           "legendFormat": "Vela STAGING",
           "range": true,
           "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "${DS_EXPRESSION}"
+          },
+          "expression": "$A + $B + $C + $D + $E + $F + $G + $H",
+          "hide": false,
+          "refId": "TOTAL",
+          "type": "math"
         }
       ],
       "title": "Total GPUs by Cluster (Count)",
@@ -877,7 +907,6 @@
             "mode": "continuous-YlBl"
           },
           "mappings": [],
-          "max": 1000,
           "min": 0,
           "thresholds": {
             "mode": "absolute",
@@ -1017,6 +1046,16 @@
           "legendFormat": "Vela STAGING",
           "range": true,
           "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "${DS_EXPRESSION}"
+          },
+          "expression": "$A + $B + $C + $D + $E + $F + $G + $H",
+          "hide": false,
+          "refId": "TOTAL",
+          "type": "math"
         }
       ],
       "title": "Total GPU Usage by Cluster (Count)",
@@ -1163,6 +1202,16 @@
           "legendFormat": "Fmaas BACKEND",
           "range": true,
           "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "__expr__",
+            "uid": "${DS_EXPRESSION}"
+          },
+          "expression": "$A + $B + $C + $D + $E + $F + $G + $H",
+          "hide": false,
+          "refId": "TOTAL",
+          "type": "math"
         }
       ],
       "title": "Free GPUs by Cluster (Count)",
@@ -1491,7 +1540,7 @@
       "type": "gauge"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1499,326 +1548,641 @@
         "y": 36
       },
       "id": 15,
-      "panels": [
+      "panels": [],
+      "title": "Averages",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "3 Day Average GPU Usage by Cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-YlBl"
+          },
+          "mappings": [],
+          "max": 500,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 37
+      },
+      "id": 16,
+      "options": {
+        "displayMode": "gradient",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 29,
+        "namePlacement": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "text": {},
+        "valueMode": "text"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
         {
           "datasource": {
-            "type": "datasource",
-            "uid": "-- Mixed --"
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-BACKEND}"
           },
-          "description": "3 Day Average GPU Usage by Cluster",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "continuous-YlBl"
-              },
-              "mappings": [],
-              "max": 500,
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 11,
-            "w": 12,
-            "x": 0,
-            "y": 37
-          },
-          "id": 16,
-          "options": {
-            "displayMode": "gradient",
-            "maxVizHeight": 300,
-            "minVizHeight": 16,
-            "minVizWidth": 29,
-            "namePlacement": "auto",
-            "orientation": "vertical",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "text": {},
-            "valueMode": "text"
-          },
-          "pluginVersion": "10.4.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_FMAAS-BACKEND}"
-              },
-              "editorMode": "code",
-              "exemplar": false,
-              "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
-              "format": "time_series",
-              "instant": true,
-              "legendFormat": "Fmaas BACKEND",
-              "range": false,
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_FMAAS-DEVSTAGE}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
-              "hide": false,
-              "legendFormat": "Fmaas DEVSTAGE",
-              "range": true,
-              "refId": "B"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_FMAAS-FINETUNING}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
-              "hide": false,
-              "legendFormat": "Fmaas FINETUNING",
-              "range": true,
-              "refId": "C"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_FMAAS-INSTRUCTLAB}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
-              "hide": false,
-              "legendFormat": "Fmaas INSTRUCTLAB",
-              "range": true,
-              "refId": "D"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PREMISE-POK}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
-              "hide": false,
-              "legendFormat": "Premise POK",
-              "range": true,
-              "refId": "E"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_VELA-DMF}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
-              "hide": false,
-              "legendFormat": "Vela DMF",
-              "range": true,
-              "refId": "F"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_VELA-PROD}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
-              "hide": false,
-              "legendFormat": "Vela PROD",
-              "range": true,
-              "refId": "G"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_VELA-STAGING}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
-              "hide": false,
-              "legendFormat": "Vela STAGING",
-              "range": true,
-              "refId": "H"
-            }
-          ],
-          "title": "3-Day Avg GPU Usage by Cluster (Count)",
-          "type": "bargauge"
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
+          "format": "time_series",
+          "instant": true,
+          "legendFormat": "Fmaas BACKEND",
+          "range": false,
+          "refId": "A"
         },
         {
           "datasource": {
-            "type": "datasource",
-            "uid": "-- Mixed --"
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-DEVSTAGE}"
           },
-          "description": "3 Day average calculation of The total GPU usage by individual Cluster.  This percentage calculation is requested GPUs divided by total capacity in the Cluster",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "percentage",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "orange",
-                    "value": 70
-                  },
-                  {
-                    "color": "red",
-                    "value": 85
-                  }
-                ]
-              },
-              "unit": "percent"
-            },
-            "overrides": []
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
+          "hide": false,
+          "legendFormat": "Fmaas DEVSTAGE",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-FINETUNING}"
           },
-          "gridPos": {
-            "h": 11,
-            "w": 12,
-            "x": 12,
-            "y": 37
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
+          "hide": false,
+          "legendFormat": "Fmaas FINETUNING",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-INSTRUCTLAB}"
           },
-          "id": 17,
-          "options": {
-            "minVizHeight": 75,
-            "minVizWidth": 75,
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showThresholdLabels": false,
-            "showThresholdMarkers": true,
-            "sizing": "auto"
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
+          "hide": false,
+          "legendFormat": "Fmaas INSTRUCTLAB",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PREMISE-POK}"
           },
-          "pluginVersion": "10.4.3",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PREMISE-POK}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
-              "legendFormat": "Premise POK",
-              "range": true,
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_VELA-DMF}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
-              "hide": false,
-              "legendFormat": "Vela DMF",
-              "range": true,
-              "refId": "H"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_VELA-STAGING}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
-              "hide": false,
-              "legendFormat": "Vela STAGING",
-              "range": true,
-              "refId": "G"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_VELA-PROD}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
-              "hide": false,
-              "legendFormat": "Vela PROD",
-              "range": true,
-              "refId": "B"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_FMAAS-INSTRUCTLAB}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
-              "hide": false,
-              "legendFormat": "Fmaas INSTRUCTLAB",
-              "range": true,
-              "refId": "C"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_FMAAS-FINETUNING}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
-              "hide": false,
-              "legendFormat": "Fmaas FINETUNING",
-              "range": true,
-              "refId": "D"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_FMAAS-DEVSTAGE}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
-              "hide": false,
-              "legendFormat": "Fmaas DEVSTAGE",
-              "range": true,
-              "refId": "E"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_FMAAS-BACKEND}"
-              },
-              "editorMode": "code",
-              "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
-              "hide": false,
-              "legendFormat": "Fmaas BACKEND",
-              "range": true,
-              "refId": "F"
-            }
-          ],
-          "title": "3 Day Avg GPU Usage by Cluster (Percentage)",
-          "type": "gauge"
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
+          "hide": false,
+          "legendFormat": "Premise POK",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-DMF}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
+          "hide": false,
+          "legendFormat": "Vela DMF",
+          "range": true,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-PROD}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
+          "hide": false,
+          "legendFormat": "Vela PROD",
+          "range": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-STAGING}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[3d:])",
+          "hide": false,
+          "legendFormat": "Vela STAGING",
+          "range": true,
+          "refId": "H"
         }
       ],
-      "title": "Averages",
-      "type": "row"
+      "title": "3-Day Avg GPU Usage by Cluster (Count)",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "3 Day average calculation of The total GPU usage by individual Cluster.  This percentage calculation is requested GPUs divided by total capacity in the Cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 37
+      },
+      "id": 17,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PREMISE-POK}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
+          "legendFormat": "Premise POK",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-DMF}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
+          "hide": false,
+          "legendFormat": "Vela DMF",
+          "range": true,
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-STAGING}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
+          "hide": false,
+          "legendFormat": "Vela STAGING",
+          "range": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-PROD}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
+          "hide": false,
+          "legendFormat": "Vela PROD",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-INSTRUCTLAB}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
+          "hide": false,
+          "legendFormat": "Fmaas INSTRUCTLAB",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-FINETUNING}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
+          "hide": false,
+          "legendFormat": "Fmaas FINETUNING",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-DEVSTAGE}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
+          "hide": false,
+          "legendFormat": "Fmaas DEVSTAGE",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-BACKEND}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [3d:])",
+          "hide": false,
+          "legendFormat": "Fmaas BACKEND",
+          "range": true,
+          "refId": "F"
+        }
+      ],
+      "title": "3 Day Avg GPU Usage by Cluster (Percentage)",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "7 Day Average GPU Usage by Cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-YlBl"
+          },
+          "mappings": [],
+          "max": 500,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 48
+      },
+      "id": 19,
+      "options": {
+        "displayMode": "gradient",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 29,
+        "namePlacement": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "text": {},
+        "valueMode": "text"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-BACKEND}"
+          },
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[7d:])",
+          "format": "time_series",
+          "instant": true,
+          "legendFormat": "Fmaas BACKEND",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-DEVSTAGE}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[7d:])",
+          "hide": false,
+          "legendFormat": "Fmaas DEVSTAGE",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-FINETUNING}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[7d:])",
+          "hide": false,
+          "legendFormat": "Fmaas FINETUNING",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-INSTRUCTLAB}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[7d:])",
+          "hide": false,
+          "legendFormat": "Fmaas INSTRUCTLAB",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PREMISE-POK}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[7d:])",
+          "hide": false,
+          "legendFormat": "Premise POK",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-DMF}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[7d:])",
+          "hide": false,
+          "legendFormat": "Vela DMF",
+          "range": true,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-PROD}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[7d:])",
+          "hide": false,
+          "legendFormat": "Vela PROD",
+          "range": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-STAGING}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"}))[7d:])",
+          "hide": false,
+          "legendFormat": "Vela STAGING",
+          "range": true,
+          "refId": "H"
+        }
+      ],
+      "title": "7-Day Avg GPU Usage by Cluster (Count)",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "-- Mixed --"
+      },
+      "description": "7 Day average calculation of The total GPU usage by individual Cluster.  This percentage calculation is requested GPUs divided by total capacity in the Cluster",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "red",
+                "value": 85
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 48
+      },
+      "id": 20,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "10.4.3",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PREMISE-POK}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [7d:])",
+          "legendFormat": "Premise POK",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-DMF}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [7d:])",
+          "hide": false,
+          "legendFormat": "Vela DMF",
+          "range": true,
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-STAGING}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [7d:])",
+          "hide": false,
+          "legendFormat": "Vela STAGING",
+          "range": true,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_VELA-PROD}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [7d:])",
+          "hide": false,
+          "legendFormat": "Vela PROD",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-INSTRUCTLAB}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [7d:])",
+          "hide": false,
+          "legendFormat": "Fmaas INSTRUCTLAB",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-FINETUNING}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [7d:])",
+          "hide": false,
+          "legendFormat": "Fmaas FINETUNING",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-DEVSTAGE}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [7d:])",
+          "hide": false,
+          "legendFormat": "Fmaas DEVSTAGE",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_FMAAS-BACKEND}"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(((sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) - count(DCGM_FI_DEV_GPU_UTIL{exported_namespace=\"\"})) / sum(kube_node_status_capacity{resource=\"nvidia_com_gpu\"}) * 100) [7d:])",
+          "hide": false,
+          "legendFormat": "Fmaas BACKEND",
+          "range": true,
+          "refId": "F"
+        }
+      ],
+      "title": "7 Day Avg GPU Usage by Cluster (Percentage)",
+      "type": "gauge"
     },
     {
       "collapsed": true,
@@ -1826,7 +2190,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 59
       },
       "id": 10,
       "panels": [
@@ -1878,8 +2242,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2060,8 +2423,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2242,8 +2604,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2395,6 +2756,6 @@
   "timezone": "browser",
   "title": "IBM Research GPU Summary",
   "uid": "bdsu3o7g82i2oc",
-  "version": 46,
+  "version": 53,
   "weekStart": ""
 }
