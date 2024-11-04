@@ -1081,10 +1081,11 @@
   "refresh": "",
   "schemaVersion": 39,
   "tags": [
-    "GPU",
-    "ClusterQueue",
     "Users",
-    "Workloads"
+    "RHOAI",
+    "ClusterQueue",
+    "Workloads",
+    "GPUs"
   ],
   "templating": {
     "list": [
@@ -1122,6 +1123,6 @@
   "timezone": "browser",
   "title": "Cluster GPU Workload Summary",
   "uid": "edz0881ygui9se",
-  "version": 41,
+  "version": 42,
   "weekStart": ""
 }
