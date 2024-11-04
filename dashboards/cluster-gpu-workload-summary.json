@@ -1080,7 +1080,12 @@
   ],
   "refresh": "",
   "schemaVersion": 39,
-  "tags": [],
+  "tags": [
+    "GPU",
+    "ClusterQueue",
+    "Users",
+    "Workloads",
+  ],
   "templating": {
     "list": [
       {
