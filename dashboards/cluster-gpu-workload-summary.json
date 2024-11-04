@@ -1084,7 +1084,7 @@
     "GPU",
     "ClusterQueue",
     "Users",
-    "Workloads",
+    "Workloads"
   ],
   "templating": {
     "list": [
